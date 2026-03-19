@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold mb-2">Settings</h1>
+    <p class="text-base-content/60 mb-6">Configure gym system settings.</p>
+
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title mb-4">General Settings</h2>
+
+            <form method="post" action="/admin/settings" class="space-y-4">
+                {% for setting in settings %}
+                <div class="form-control">
+                    <label class="label" for="setting-{{ setting.key }}">
+                        <span class="label-text font-semibold">{{ setting.key }}</span>
+                    </label>
+                    <div class="flex gap-2">
+                        <input type="hidden" name="keys[]" value="{{ setting.key }}">
+                        <input type="text" id="setting-{{ setting.key }}" name="values[]"
+                               value="{{ setting.value }}"
+                               class="input input-bordered w-full">
+                    </div>
+                    {% if let Some(desc) = setting.description %}
+                    <label class="label">
+                        <span class="label-text-alt text-base-content/50">{{ desc }}</span>
+                    </label>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                {% if settings.is_empty() %}
+                <div class="text-center py-8">
+                    <p class="text-base-content/50">No settings configured yet.</p>
+                </div>
+                {% endif %}
+
+                <div class="divider"></div>
+
+                <div class="card-actions justify-end">
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

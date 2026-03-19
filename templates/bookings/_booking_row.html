@@ -1,0 +1,36 @@
+<tr id="booking-row-{{ booking.id }}">
+    <td class="font-semibold">{{ booking.class_name }}</td>
+    <td>
+        {% if let Some(name) = booking.instructor_name %}
+        {{ name }}
+        {% else %}
+        <span class="text-base-content/40">TBD</span>
+        {% endif %}
+    </td>
+    <td>
+        <div class="text-sm">{{ booking.starts_at }}</div>
+        <div class="text-xs text-base-content/50">to {{ booking.ends_at }}</div>
+    </td>
+    <td>
+        {% if booking.status == "confirmed" %}
+        <span class="badge badge-success">Confirmed</span>
+        {% elif booking.status == "cancelled" %}
+        <span class="badge badge-ghost">Cancelled</span>
+        {% else %}
+        <span class="badge">{{ booking.status }}</span>
+        {% endif %}
+    </td>
+    <td>
+        {% if booking.status == "confirmed" %}
+        <button class="btn btn-error btn-sm"
+                hx-post="/bookings/{{ booking.id }}/cancel"
+                hx-target="#booking-row-{{ booking.id }}"
+                hx-swap="outerHTML"
+                hx-confirm="Cancel this booking?">
+            Cancel
+        </button>
+        {% else %}
+        <span class="text-base-content/40 text-sm">--</span>
+        {% endif %}
+    </td>
+</tr>

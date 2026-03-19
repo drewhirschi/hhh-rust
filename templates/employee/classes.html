@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Class Management - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-3xl font-bold">Class Management</h1>
+            <p class="text-base-content/60">Create and manage class definitions.</p>
+        </div>
+        <div class="flex gap-2">
+            <a href="/employee/classes/new" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                New Class
+            </a>
+            <a href="/employee/classes/schedule/new" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                </svg>
+                Schedule Class
+            </a>
+        </div>
+    </div>
+
+    {% if classes.is_empty() %}
+    <div class="card bg-base-100 shadow">
+        <div class="card-body items-center text-center py-12">
+            <h2 class="text-xl font-semibold text-base-content/50">No Class Definitions</h2>
+            <p class="text-base-content/40 mb-4">Get started by creating your first class.</p>
+            <a href="/employee/classes/new" class="btn btn-primary">Create First Class</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="overflow-x-auto">
+        <table class="table table-zebra bg-base-100 shadow rounded-box">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Capacity</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for class in classes %}
+                <tr>
+                    <td class="font-semibold">{{ class.name }}</td>
+                    <td class="max-w-xs truncate text-sm text-base-content/70">{{ class.description }}</td>
+                    <td>{{ class.capacity }}</td>
+                    <td>{{ class.duration_minutes }} min</td>
+                    <td>
+                        {% if class.is_active %}
+                        <span class="badge badge-success">Active</span>
+                        {% else %}
+                        <span class="badge badge-ghost">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="flex gap-2">
+                            <a href="/employee/classes/{{ class.id }}/edit" class="btn btn-ghost btn-sm">Edit</a>
+                            {% if class.is_active %}
+                            <form method="post" action="/employee/classes/{{ class.id }}/delete">
+                                <button type="submit" class="btn btn-error btn-sm btn-outline"
+                                        onclick="return confirm('Deactivate this class?')">
+                                    Deactivate
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

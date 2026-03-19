@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Class Roster - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <div class="mb-4">
+        <a href="/employee/classes" class="btn btn-ghost btn-sm gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Back to Classes
+        </a>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h1 class="card-title text-2xl">{{ schedule.class_name }}</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
+                <div>
+                    <span class="text-sm font-semibold text-base-content/60">Instructor</span>
+                    <p>
+                        {% if let Some(name) = schedule.instructor_name %}
+                        {{ name }}
+                        {% else %}
+                        TBD
+                        {% endif %}
+                    </p>
+                </div>
+                <div>
+                    <span class="text-sm font-semibold text-base-content/60">Time</span>
+                    <p>{{ schedule.starts_at }} - {{ schedule.ends_at }}</p>
+                </div>
+                <div>
+                    <span class="text-sm font-semibold text-base-content/60">Bookings</span>
+                    <p>{{ schedule.booked_count }} / {{ schedule.capacity }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="text-xl font-semibold mb-4">Attendee Roster</h2>
+
+    {% if attendees.is_empty() %}
+    <div class="card bg-base-100 shadow">
+        <div class="card-body items-center text-center py-8">
+            <p class="text-base-content/50">No bookings for this class yet.</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="overflow-x-auto">
+        <table class="table table-zebra bg-base-100 shadow rounded-box">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Booked At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendee in attendees %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="font-semibold">{{ attendee.user_name }}</td>
+                    <td>{{ attendee.user_email }}</td>
+                    <td>
+                        {% if attendee.status == "confirmed" %}
+                        <span class="badge badge-success">Active</span>
+                        {% elif attendee.status == "cancelled" %}
+                        <span class="badge badge-ghost">Cancelled</span>
+                        {% else %}
+                        <span class="badge">{{ attendee.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-sm">{{ attendee.booked_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

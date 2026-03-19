@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}{{ schedule.class_name }} - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="mb-4">
+        <a href="/classes" class="btn btn-ghost btn-sm gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Back to Schedule
+        </a>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <div class="flex items-start justify-between">
+                <div>
+                    <h1 class="card-title text-3xl">{{ schedule.class_name }}</h1>
+                    {% if schedule.is_cancelled %}
+                    <span class="badge badge-warning mt-2">Cancelled</span>
+                    {% endif %}
+                </div>
+                {% if schedule.booked_count >= schedule.capacity %}
+                <span class="badge badge-error badge-lg">Full</span>
+                {% else %}
+                <span class="badge badge-success badge-lg">{{ schedule.capacity - schedule.booked_count }} spots left</span>
+                {% endif %}
+            </div>
+
+            <p class="mt-4 text-base-content/80">{{ schedule.description }}</p>
+
+            <div class="divider"></div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="text-sm font-semibold text-base-content/60 uppercase tracking-wide">Instructor</h3>
+                    <p class="text-lg mt-1">
+                        {% if let Some(name) = schedule.instructor_name %}
+                        {{ name }}
+                        {% else %}
+                        <span class="text-base-content/40">To be determined</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-base-content/60 uppercase tracking-wide">Capacity</h3>
+                    <p class="text-lg mt-1">{{ schedule.booked_count }} / {{ schedule.capacity }} booked</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-base-content/60 uppercase tracking-wide">Starts At</h3>
+                    <p class="text-lg mt-1">{{ schedule.starts_at }}</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-base-content/60 uppercase tracking-wide">Ends At</h3>
+                    <p class="text-lg mt-1">{{ schedule.ends_at }}</p>
+                </div>
+            </div>
+
+            <div class="card-actions justify-end mt-6">
+                {% if schedule.is_cancelled %}
+                <span class="badge badge-warning badge-lg">This class has been cancelled</span>
+                {% elif is_booked %}
+                <form method="post" action="/bookings/{{ booking_id }}/cancel">
+                    <button type="submit" class="btn btn-error">Cancel Booking</button>
+                </form>
+                {% elif schedule.booked_count >= schedule.capacity %}
+                <button class="btn btn-disabled">Class is Full</button>
+                {% else %}
+                <form method="post" action="/bookings">
+                    <input type="hidden" name="class_schedule_id" value="{{ schedule.id }}">
+                    <button type="submit" class="btn btn-primary">Book This Class</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

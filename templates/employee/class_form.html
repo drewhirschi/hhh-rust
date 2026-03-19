@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}{% if let Some(c) = class %}Edit {{ c.name }}{% else %}New Class{% endif %} - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto">
+    <div class="mb-4">
+        <a href="/employee/classes" class="btn btn-ghost btn-sm gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Back to Classes
+        </a>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">
+                {% if let Some(_c) = class %}Edit Class{% else %}New Class{% endif %}
+            </h2>
+
+            <form method="post"
+                  action="{% if let Some(c) = class %}/employee/classes/{{ c.id }}{% else %}/employee/classes{% endif %}"
+                  class="space-y-4">
+
+                <div class="form-control">
+                    <label class="label" for="name">
+                        <span class="label-text">Class Name</span>
+                    </label>
+                    <input type="text" id="name" name="name"
+                           value="{% if let Some(c) = class %}{{ c.name }}{% endif %}"
+                           placeholder="e.g., Morning Yoga, HIIT Bootcamp"
+                           class="input input-bordered w-full" required>
+                </div>
+
+                <div class="form-control">
+                    <label class="label" for="description">
+                        <span class="label-text">Description</span>
+                    </label>
+                    <textarea id="description" name="description" rows="3"
+                              placeholder="Describe the class, what to bring, fitness level, etc."
+                              class="textarea textarea-bordered w-full" required>{% if let Some(c) = class %}{{ c.description }}{% endif %}</textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label" for="capacity">
+                            <span class="label-text">Capacity</span>
+                        </label>
+                        <input type="number" id="capacity" name="capacity" min="1" max="100"
+                               value="{% if let Some(c) = class %}{{ c.capacity }}{% else %}20{% endif %}"
+                               class="input input-bordered w-full" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label" for="duration_minutes">
+                            <span class="label-text">Duration (minutes)</span>
+                        </label>
+                        <input type="number" id="duration_minutes" name="duration_minutes" min="15" max="180" step="5"
+                               value="{% if let Some(c) = class %}{{ c.duration_minutes }}{% else %}60{% endif %}"
+                               class="input input-bordered w-full" required>
+                    </div>
+                </div>
+
+                <div class="card-actions justify-end mt-6">
+                    <a href="/employee/classes" class="btn btn-ghost">Cancel</a>
+                    <button type="submit" class="btn btn-primary">
+                        {% if let Some(_c) = class %}Update Class{% else %}Create Class{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Members - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-2">Members</h1>
+    <p class="text-base-content/60 mb-6">View and manage gym members.</p>
+
+    {% if members.is_empty() %}
+    <div class="card bg-base-100 shadow">
+        <div class="card-body items-center text-center py-12">
+            <h2 class="text-xl font-semibold text-base-content/50">No Members</h2>
+            <p class="text-base-content/40">No member accounts found.</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="overflow-x-auto">
+        <table class="table table-zebra bg-base-100 shadow rounded-box">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                <tr>
+                    <td class="font-semibold">{{ member.display_name }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>
+                        <span class="badge badge-outline">{{ member.role }}</span>
+                    </td>
+                    <td>
+                        {% if member.is_active %}
+                        <span class="badge badge-success">Active</span>
+                        {% else %}
+                        <span class="badge badge-error">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-sm">{{ member.created_at }}</td>
+                    <td>
+                        <form method="post" action="/employee/members/{{ member.id }}/toggle">
+                            {% if member.is_active %}
+                            <button type="submit" class="btn btn-warning btn-sm"
+                                    onclick="return confirm('Deactivate this member?')">
+                                Deactivate
+                            </button>
+                            {% else %}
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Activate
+                            </button>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

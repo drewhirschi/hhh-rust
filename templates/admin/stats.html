@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-2">System Statistics</h1>
+    <p class="text-base-content/60 mb-8">Overview of gym system metrics.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">Users by Role</h2>
+                <div class="overflow-x-auto mt-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="badge badge-primary">Admin</span>
+                                </td>
+                                <td class="font-semibold">{{ admin_count }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge badge-secondary">Employee</span>
+                                </td>
+                                <td class="font-semibold">{{ employee_count }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge badge-outline">Member</span>
+                                </td>
+                                <td class="font-semibold">{{ member_count }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="font-semibold">Total</td>
+                                <td class="font-semibold">{{ total_users }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow">
+            <div class="card-body">
+                <h2 class="card-title">System Overview</h2>
+                <div class="space-y-4 mt-4">
+                    <div class="flex justify-between items-center p-3 bg-base-200 rounded-lg">
+                        <span class="text-base-content/70">Total Users</span>
+                        <span class="font-bold text-lg">{{ total_users }}</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-base-200 rounded-lg">
+                        <span class="text-base-content/70">Active Class Definitions</span>
+                        <span class="font-bold text-lg">{{ active_classes }}</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-base-200 rounded-lg">
+                        <span class="text-base-content/70">Total Bookings</span>
+                        <span class="font-bold text-lg">{{ total_bookings }}</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-base-200 rounded-lg">
+                        <span class="text-base-content/70">Active Bookings</span>
+                        <span class="font-bold text-lg">{{ active_bookings }}</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-base-200 rounded-lg">
+                        <span class="text-base-content/70">Active Sessions</span>
+                        <span class="font-bold text-lg">{{ active_sessions }}</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-base-200 rounded-lg">
+                        <span class="text-base-content/70">Upcoming Schedules</span>
+                        <span class="font-bold text-lg">{{ upcoming_schedules }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}User Management - HHH Gym{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-3xl font-bold">User Management</h1>
+            <p class="text-base-content/60">Manage all user accounts.</p>
+        </div>
+        <a href="/admin/users/new" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            New User
+        </a>
+    </div>
+
+    {% if users.is_empty() %}
+    <div class="card bg-base-100 shadow">
+        <div class="card-body items-center text-center py-12">
+            <h2 class="text-xl font-semibold text-base-content/50">No Users</h2>
+            <p class="text-base-content/40">No user accounts found.</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="overflow-x-auto">
+        <table class="table table-zebra bg-base-100 shadow rounded-box">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td class="font-semibold">{{ u.display_name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                        {% if u.role == "admin" %}
+                        <span class="badge badge-primary">Admin</span>
+                        {% elif u.role == "employee" %}
+                        <span class="badge badge-secondary">Employee</span>
+                        {% else %}
+                        <span class="badge badge-outline">Member</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if u.is_active %}
+                        <span class="badge badge-success">Active</span>
+                        {% else %}
+                        <span class="badge badge-error">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-sm">{{ u.created_at }}</td>
+                    <td>
+                        <div class="flex gap-2">
+                            <a href="/admin/users/{{ u.id }}/edit" class="btn btn-ghost btn-sm">Edit</a>
+                            <form method="post" action="/admin/users/{{ u.id }}/toggle">
+                                {% if u.is_active %}
+                                <button type="submit" class="btn btn-warning btn-sm btn-outline"
+                                        onclick="return confirm('Deactivate this user?')">
+                                    Deactivate
+                                </button>
+                                {% else %}
+                                <button type="submit" class="btn btn-success btn-sm btn-outline">
+                                    Activate
+                                </button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
