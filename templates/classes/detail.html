@@ -66,7 +66,7 @@
                     <button type="submit" class="btn btn-error">Cancel Booking</button>
                 </form>
                 {% elif schedule.booked_count >= schedule.capacity %}
-                <button class="btn btn-disabled">Class is Full</button>
+                <button class="btn" disabled>Class is Full</button>
                 {% else %}
                 <form method="post" action="/bookings">
                     <input type="hidden" name="class_schedule_id" value="{{ schedule.id }}">

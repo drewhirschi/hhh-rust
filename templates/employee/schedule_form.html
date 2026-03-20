@@ -19,12 +19,10 @@
             <p class="text-base-content/60 mb-4">The end time will be calculated automatically based on the class duration.</p>
 
             <form method="post" action="/employee/classes/schedule" class="space-y-4">
-                <div class="form-control">
-                    <label class="label" for="class_definition_id">
-                        <span class="label-text">Class</span>
-                    </label>
+                <div>
+                    <span class="label">Class</span>
                     <select id="class_definition_id" name="class_definition_id"
-                            class="select select-bordered w-full" required>
+                            class="select w-full" required>
                         <option value="" disabled selected>Select a class</option>
                         {% for class in classes %}
                         <option value="{{ class.id }}">{{ class.name }} ({{ class.duration_minutes }} min, cap: {{ class.capacity }})</option>
@@ -32,12 +30,10 @@
                     </select>
                 </div>
 
-                <div class="form-control">
-                    <label class="label" for="instructor_id">
-                        <span class="label-text">Instructor</span>
-                    </label>
+                <div>
+                    <span class="label">Instructor</span>
                     <select id="instructor_id" name="instructor_id"
-                            class="select select-bordered w-full">
+                            class="select w-full">
                         <option value="">No instructor assigned</option>
                         {% for instructor in instructors %}
                         <option value="{{ instructor.id }}">{{ instructor.display_name }}</option>
@@ -45,13 +41,10 @@
                     </select>
                 </div>
 
-                <div class="form-control">
-                    <label class="label" for="starts_at">
-                        <span class="label-text">Start Date &amp; Time</span>
-                    </label>
-                    <input type="datetime-local" id="starts_at" name="starts_at"
-                           class="input input-bordered w-full" required>
-                </div>
+                <label class="input w-full" for="starts_at">
+                    <span class="label">Start Date &amp; Time</span>
+                    <input type="datetime-local" id="starts_at" name="starts_at" required>
+                </label>
 
                 <div class="card-actions justify-end mt-6">
                     <a href="/employee/classes" class="btn btn-ghost">Cancel</a>

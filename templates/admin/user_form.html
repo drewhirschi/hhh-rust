@@ -23,31 +23,23 @@
                   action="{% if let Some(u) = edit_user %}/admin/users/{{ u.id }}{% else %}/admin/users{% endif %}"
                   class="space-y-4">
 
-                <div class="form-control">
-                    <label class="label" for="display_name">
-                        <span class="label-text">Display Name</span>
-                    </label>
+                <label class="input w-full" for="display_name">
+                    <span class="label">Display Name</span>
                     <input type="text" id="display_name" name="display_name"
                            value="{% if let Some(u) = edit_user %}{{ u.display_name }}{% endif %}"
-                           placeholder="Full name"
-                           class="input input-bordered w-full" required>
-                </div>
+                           placeholder="Full name" required>
+                </label>
 
-                <div class="form-control">
-                    <label class="label" for="email">
-                        <span class="label-text">Email</span>
-                    </label>
+                <label class="input w-full" for="email">
+                    <span class="label">Email</span>
                     <input type="email" id="email" name="email"
                            value="{% if let Some(u) = edit_user %}{{ u.email }}{% endif %}"
-                           placeholder="user@example.com"
-                           class="input input-bordered w-full" required>
-                </div>
+                           placeholder="user@example.com" required>
+                </label>
 
-                <div class="form-control">
-                    <label class="label" for="role">
-                        <span class="label-text">Role</span>
-                    </label>
-                    <select id="role" name="role" class="select select-bordered w-full" required>
+                <div>
+                    <span class="label">Role</span>
+                    <select id="role" name="role" class="select w-full" required>
                         <option value="member" {% if let Some(u) = edit_user %}{% if u.role == "member" %}selected{% endif %}{% endif %}>Member</option>
                         <option value="employee" {% if let Some(u) = edit_user %}{% if u.role == "employee" %}selected{% endif %}{% endif %}>Employee</option>
                         <option value="admin" {% if let Some(u) = edit_user %}{% if u.role == "admin" %}selected{% endif %}{% endif %}>Admin</option>
@@ -55,16 +47,13 @@
                 </div>
 
                 {% if edit_user.is_none() %}
-                <div class="form-control">
-                    <label class="label" for="password">
-                        <span class="label-text">Password</span>
+                <div>
+                    <label class="input w-full" for="password">
+                        <span class="label">Password</span>
+                        <input type="password" id="password" name="password"
+                               placeholder="Set initial password" required minlength="8">
                     </label>
-                    <input type="password" id="password" name="password"
-                           placeholder="Set initial password"
-                           class="input input-bordered w-full" required minlength="8">
-                    <label class="label">
-                        <span class="label-text-alt text-base-content/50">Minimum 8 characters</span>
-                    </label>
+                    <span class="text-sm text-base-content/50 mt-1 block">Minimum 8 characters</span>
                 </div>
                 {% endif %}
 

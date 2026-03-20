@@ -8,28 +8,36 @@
     <p class="text-base-content/60 mb-8">System overview and administration.</p>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="stat bg-base-100 rounded-box shadow">
-            <div class="stat-title">Total Users</div>
-            <div class="stat-value text-primary">{{ total_users }}</div>
-            <div class="stat-desc">Registered accounts</div>
+        <div class="stats shadow">
+            <div class="stat">
+                <div class="stat-title">Total Users</div>
+                <div class="stat-value text-primary">{{ total_users }}</div>
+                <div class="stat-desc">Registered accounts</div>
+            </div>
         </div>
 
-        <div class="stat bg-base-100 rounded-box shadow">
-            <div class="stat-title">Active Sessions</div>
-            <div class="stat-value text-secondary">{{ active_sessions }}</div>
-            <div class="stat-desc">Currently logged in</div>
+        <div class="stats shadow">
+            <div class="stat">
+                <div class="stat-title">Active Sessions</div>
+                <div class="stat-value text-secondary">{{ active_sessions }}</div>
+                <div class="stat-desc">Currently logged in</div>
+            </div>
         </div>
 
-        <div class="stat bg-base-100 rounded-box shadow">
-            <div class="stat-title">Total Bookings</div>
-            <div class="stat-value text-accent">{{ total_bookings }}</div>
-            <div class="stat-desc">All time</div>
+        <div class="stats shadow">
+            <div class="stat">
+                <div class="stat-title">Total Bookings</div>
+                <div class="stat-value text-accent">{{ total_bookings }}</div>
+                <div class="stat-desc">All time</div>
+            </div>
         </div>
 
-        <div class="stat bg-base-100 rounded-box shadow">
-            <div class="stat-title">Active Classes</div>
-            <div class="stat-value text-info">{{ active_classes }}</div>
-            <div class="stat-desc">Class definitions</div>
+        <div class="stats shadow">
+            <div class="stat">
+                <div class="stat-title">Active Classes</div>
+                <div class="stat-value text-info">{{ active_classes }}</div>
+                <div class="stat-desc">Class definitions</div>
+            </div>
         </div>
     </div>
 

@@ -69,7 +69,7 @@
                         {% if attendee.status == "confirmed" %}
                         <span class="badge badge-success">Confirmed</span>
                         {% elif attendee.status == "cancelled" %}
-                        <span class="badge badge-ghost">Cancelled</span>
+                        <span class="badge badge-neutral">Cancelled</span>
                         {% else %}
                         <span class="badge">{{ attendee.status }}</span>
                         {% endif %}

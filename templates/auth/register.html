@@ -10,7 +10,7 @@
             <p class="text-center text-base-content/60 mb-4">Join HHH Gym with your invite code</p>
 
             {% if let Some(error) = error %}
-            <div class="alert alert-error mb-4">
+            <div role="alert" class="alert alert-error mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -21,39 +21,27 @@
             <form method="post" action="/register/{{ code }}" class="space-y-4">
                 <input type="hidden" name="code" value="{{ code }}">
 
-                <div class="form-control">
-                    <label class="label" for="display_name">
-                        <span class="label-text">Display Name</span>
-                    </label>
-                    <input type="text" id="display_name" name="display_name" placeholder="Your name"
-                           class="input input-bordered w-full" required autofocus>
-                </div>
+                <label class="input w-full" for="display_name">
+                    <span class="label">Display Name</span>
+                    <input type="text" id="display_name" name="display_name" placeholder="Your name" required autofocus>
+                </label>
 
-                <div class="form-control">
-                    <label class="label" for="email">
-                        <span class="label-text">Email</span>
-                    </label>
-                    <input type="email" id="email" name="email" placeholder="you@example.com"
-                           class="input input-bordered w-full" required>
-                </div>
+                <label class="input w-full" for="email">
+                    <span class="label">Email</span>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </label>
 
-                <div class="form-control">
-                    <label class="label" for="password">
-                        <span class="label-text">Password</span>
-                    </label>
-                    <input type="password" id="password" name="password" placeholder="Choose a password"
-                           class="input input-bordered w-full" required minlength="8">
-                </div>
+                <label class="input w-full" for="password">
+                    <span class="label">Password</span>
+                    <input type="password" id="password" name="password" placeholder="Choose a password" required minlength="8">
+                </label>
 
-                <div class="form-control">
-                    <label class="label" for="password_confirm">
-                        <span class="label-text">Confirm Password</span>
-                    </label>
-                    <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm your password"
-                           class="input input-bordered w-full" required minlength="8">
-                </div>
+                <label class="input w-full" for="password_confirm">
+                    <span class="label">Confirm Password</span>
+                    <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm your password" required minlength="8">
+                </label>
 
-                <div class="form-control mt-6">
+                <div class="mt-6">
                     <button type="submit" class="btn btn-primary w-full">Create Account</button>
                 </div>
             </form>

@@ -11,38 +11,28 @@
             <h2 class="card-title mb-4">Profile Information</h2>
 
             <form method="post" action="/account" class="space-y-4">
-                <div class="form-control">
-                    <label class="label" for="display_name">
-                        <span class="label-text">Display Name</span>
+                <label class="input w-full" for="display_name">
+                    <span class="label">Display Name</span>
+                    <input type="text" id="display_name" name="display_name" value="{{ profile.display_name }}" required>
+                </label>
+
+                <label class="input w-full" for="email">
+                    <span class="label">Email</span>
+                    <input type="email" id="email" name="email" value="{{ profile.email }}" required>
+                </label>
+
+                <div>
+                    <label class="input w-full">
+                        <span class="label">Role</span>
+                        <input type="text" value="{{ profile.role }}" disabled>
                     </label>
-                    <input type="text" id="display_name" name="display_name" value="{{ profile.display_name }}"
-                           class="input input-bordered w-full" required>
+                    <span class="text-sm text-base-content/50 mt-1 block">Contact an admin to change your role</span>
                 </div>
 
-                <div class="form-control">
-                    <label class="label" for="email">
-                        <span class="label-text">Email</span>
-                    </label>
-                    <input type="email" id="email" name="email" value="{{ profile.email }}"
-                           class="input input-bordered w-full" required>
-                </div>
-
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Role</span>
-                    </label>
-                    <input type="text" value="{{ profile.role }}" class="input input-bordered w-full" disabled>
-                    <label class="label">
-                        <span class="label-text-alt text-base-content/50">Contact an admin to change your role</span>
-                    </label>
-                </div>
-
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Member Since</span>
-                    </label>
-                    <input type="text" value="{{ profile.created_at }}" class="input input-bordered w-full" disabled>
-                </div>
+                <label class="input w-full">
+                    <span class="label">Member Since</span>
+                    <input type="text" value="{{ profile.created_at }}" disabled>
+                </label>
 
                 <div class="card-actions justify-end mt-4">
                     <button type="submit" class="btn btn-primary">Save Changes</button>

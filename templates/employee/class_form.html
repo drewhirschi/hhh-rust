@@ -23,43 +23,32 @@
                   action="{% if let Some(c) = class %}/employee/classes/{{ c.id }}{% else %}/employee/classes{% endif %}"
                   class="space-y-4">
 
-                <div class="form-control">
-                    <label class="label" for="name">
-                        <span class="label-text">Class Name</span>
-                    </label>
+                <label class="input w-full" for="name">
+                    <span class="label">Class Name</span>
                     <input type="text" id="name" name="name"
                            value="{% if let Some(c) = class %}{{ c.name }}{% endif %}"
-                           placeholder="e.g., Morning Yoga, HIIT Bootcamp"
-                           class="input input-bordered w-full" required>
-                </div>
+                           placeholder="e.g., Morning Yoga, HIIT Bootcamp" required>
+                </label>
 
-                <div class="form-control">
-                    <label class="label" for="description">
-                        <span class="label-text">Description</span>
-                    </label>
+                <div>
+                    <span class="label">Description</span>
                     <textarea id="description" name="description" rows="3"
                               placeholder="Describe the class, what to bring, fitness level, etc."
-                              class="textarea textarea-bordered w-full" required>{% if let Some(c) = class %}{{ c.description }}{% endif %}</textarea>
+                              class="textarea w-full" required>{% if let Some(c) = class %}{{ c.description }}{% endif %}</textarea>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="form-control">
-                        <label class="label" for="capacity">
-                            <span class="label-text">Capacity</span>
-                        </label>
+                    <label class="input w-full" for="capacity">
+                        <span class="label">Capacity</span>
                         <input type="number" id="capacity" name="capacity" min="1" max="100"
-                               value="{% if let Some(c) = class %}{{ c.capacity }}{% else %}20{% endif %}"
-                               class="input input-bordered w-full" required>
-                    </div>
+                               value="{% if let Some(c) = class %}{{ c.capacity }}{% else %}20{% endif %}" required>
+                    </label>
 
-                    <div class="form-control">
-                        <label class="label" for="duration_minutes">
-                            <span class="label-text">Duration (minutes)</span>
-                        </label>
+                    <label class="input w-full" for="duration_minutes">
+                        <span class="label">Duration (minutes)</span>
                         <input type="number" id="duration_minutes" name="duration_minutes" min="15" max="180" step="5"
-                               value="{% if let Some(c) = class %}{{ c.duration_minutes }}{% else %}60{% endif %}"
-                               class="input input-bordered w-full" required>
-                    </div>
+                               value="{% if let Some(c) = class %}{{ c.duration_minutes }}{% else %}60{% endif %}" required>
+                    </label>
                 </div>
 
                 <div class="card-actions justify-end mt-6">

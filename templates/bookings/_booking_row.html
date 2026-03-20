@@ -15,7 +15,7 @@
         {% if booking.status == "confirmed" %}
         <span class="badge badge-success">Confirmed</span>
         {% elif booking.status == "cancelled" %}
-        <span class="badge badge-ghost">Cancelled</span>
+        <span class="badge badge-neutral">Cancelled</span>
         {% else %}
         <span class="badge">{{ booking.status }}</span>
         {% endif %}

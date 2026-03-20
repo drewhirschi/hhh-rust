@@ -48,7 +48,7 @@
                     <td>{{ invite.creator_name }}</td>
                     <td>
                         {% if let Some(_used) = invite.used_by %}
-                        <span class="badge badge-ghost">Used</span>
+                        <span class="badge badge-neutral">Used</span>
                         {% else %}
                         <span class="badge badge-success">Active</span>
                         {% endif %}

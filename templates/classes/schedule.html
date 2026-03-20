@@ -61,7 +61,7 @@
                         {% elif booked_ids.contains(&schedule.id) %}
                         <span class="badge badge-info">Booked</span>
                         {% elif schedule.booked_count >= schedule.capacity %}
-                        <span class="badge badge-ghost">Full</span>
+                        <span class="badge badge-neutral">Full</span>
                         {% else %}
                         <button class="btn btn-primary btn-sm"
                                 hx-post="/bookings"
