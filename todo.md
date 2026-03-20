@@ -1,0 +1,4 @@
+- make this look way better, components need to be impled, is that done? how can we just run the agent on each component until it looks like on daisys website.
+- why is it slow also most 100ms per navigation on local host? is sqlite way slower than pg?
+- how would we compare with the go impl to now which we like better?
+- what does dev look like? HMR compile times etc
