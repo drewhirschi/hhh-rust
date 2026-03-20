@@ -67,7 +67,7 @@
                     <td>{{ attendee.user_email }}</td>
                     <td>
                         {% if attendee.status == "confirmed" %}
-                        <span class="badge badge-success">Active</span>
+                        <span class="badge badge-success">Confirmed</span>
                         {% elif attendee.status == "cancelled" %}
                         <span class="badge badge-ghost">Cancelled</span>
                         {% else %}
