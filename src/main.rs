@@ -33,5 +33,15 @@ async fn main() {
         .expect("Failed to bind address");
 
     info!("Listening on {addr}");
-    axum::serve(listener, app).await.expect("Server error");
+    axum::serve(listener, app)
+        .with_graceful_shutdown(shutdown_signal())
+        .await
+        .expect("Server error");
+}
+
+async fn shutdown_signal() {
+    tokio::signal::ctrl_c()
+        .await
+        .expect("Failed to listen for ctrl+c");
+    info!("Shutdown signal received, draining connections...");
 }
