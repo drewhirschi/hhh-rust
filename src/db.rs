@@ -3,16 +3,21 @@ use argon2::{
     Argon2, PasswordHasher,
 };
 use rand::rngs::OsRng;
-use sqlx::sqlite::SqlitePoolOptions;
+use sqlx::sqlite::{SqliteConnectOptions, SqlitePoolOptions};
 use sqlx::{Executor, SqlitePool};
 use tracing::info;
+use std::str::FromStr;
 
 use crate::config::Config;
 
 pub async fn init_pool(config: &Config) -> SqlitePool {
+    let opts = SqliteConnectOptions::from_str(&config.database_url)
+        .expect("Invalid DATABASE_URL")
+        .create_if_missing(true);
+
     let pool = SqlitePoolOptions::new()
         .max_connections(5)
-        .connect(&config.database_url)
+        .connect_with(opts)
         .await
         .expect("Failed to connect to database");
 
